@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { envs } from './config/envs';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
     imports: [
@@ -13,7 +14,8 @@ import { envs } from './config/envs';
             password: envs.db.password,
             autoLoadEntities: true,
             synchronize: true,
-        })
+        }),
+        FeedbackModule
     ],
 })
 export class AppModule { }
