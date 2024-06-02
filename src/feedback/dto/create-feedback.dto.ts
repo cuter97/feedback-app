@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { FeedbackCategory, FeedbackStatus } from "src/common/enums";
+import { FeedbackCategory, FeedbackStatus } from "src/common/interfaces/enums";
 
 export class CreateFeedbackDto {
 

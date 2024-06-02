@@ -1,7 +1,8 @@
 export enum FeedbackCategory {
     FEATURE = 'feature',
     UI = 'ui',
-    UX_ENHANCEMENT = 'ux enhancement',
+    UX = 'ux',
+    ENHANCEMENT = 'enhancement',
     BUG = 'bug'
 }
 

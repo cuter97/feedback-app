@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { FeedbackCategory, FeedbackStatus } from "src/common/enums";
+import { FeedbackCategory, FeedbackStatus } from "src/common/interfaces/enums";
 
 @Entity('feedback')
 export class Feedback {
