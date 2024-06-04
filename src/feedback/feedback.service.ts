@@ -17,7 +17,7 @@ export class FeedbackService {
         private readonly feedbackRepository: Repository<Feedback>,
     ) { }
 
-    async create(createFeedbackDto: CreateFeedbackDto) {
+    async create(createFeedbackDto: CreateFeedbackDto): Promise<Feedback> {
         try {
             const feedback = this.feedbackRepository.create(createFeedbackDto);
             await this.feedbackRepository.save(feedback);
@@ -32,10 +32,10 @@ export class FeedbackService {
 
         const query = this.feedbackRepository.createQueryBuilder('feedback');
 
-        if (status) 
+        if (status)
             query.andWhere('feedback.status = :status', { status });
-    
-        if (category) 
+
+        if (category)
             query.andWhere('feedback.category = :category', { category });
 
         query.skip(offset).take(limit);
@@ -50,8 +50,16 @@ export class FeedbackService {
         return feedback;
     }
 
-    update(id: number, updateFeedbackDto: UpdateFeedbackDto) {
-        return `This action updates a #${id} feedback`;
+    async update(id: string, updateFeedbackDto: UpdateFeedbackDto): Promise<Feedback> {
+        const feedback = await this.feedbackRepository.preload({ id, ...updateFeedbackDto });
+        if (!feedback) throw new NotFoundException('Feedback not found');
+
+        try {
+            await this.feedbackRepository.save(feedback);
+            return feedback;
+        } catch (error) {
+            this.handleDBException(error);
+        }
     }
 
     async remove(id: string) {

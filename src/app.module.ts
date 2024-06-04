@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { envs } from './config/envs';
 import { FeedbackModule } from './feedback/feedback.module';
 import { CommonModule } from './common/common.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { CommonModule } from './common/common.module';
         }),
         FeedbackModule,
         CommonModule,
+        AuthModule,
     ],
 })
 export class AppModule { }

@@ -10,7 +10,9 @@ export class FeedbackController {
     constructor(private readonly feedbackService: FeedbackService) { }
 
     @Post()
-    create(@Body() createFeedbackDto: CreateFeedbackDto) {
+    create(
+        @Body() createFeedbackDto: CreateFeedbackDto
+    ): Promise<Feedback> {
         return this.feedbackService.create(createFeedbackDto);
     }
 
@@ -29,12 +31,17 @@ export class FeedbackController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateFeedbackDto: UpdateFeedbackDto) {
-        return this.feedbackService.update(+id, updateFeedbackDto);
+    update(
+        @Param('id', ParseUUIDPipe) id: string, 
+        @Body() updateFeedbackDto: UpdateFeedbackDto
+    ): Promise<Feedback> {
+        return this.feedbackService.update(id, updateFeedbackDto);
     }
 
     @Delete(':id')
-    remove(@Param('id', ParseUUIDPipe) id: string) {
+    remove(
+        @Param('id', ParseUUIDPipe) id: string
+    ) {
         return this.feedbackService.remove(id);
     }
 }
